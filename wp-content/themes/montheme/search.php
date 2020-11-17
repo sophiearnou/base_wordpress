@@ -1,22 +1,19 @@
 <?php get_header() ?>
 
+<form class="form-inline">
+    <input type="search" name="s" class="form-control mb-2 mr-sm-2" value="<?= get_search_query() ?>" placeholder="Votre recherche">
 
-<!-- on récupère le tableau des terms,on veut utiliser les terms de la taxonomy sport, -->
-<?php $sports = get_terms(['taxonomy' => 'sport']); ?>
-<ul class="nav nav-pills my-4">
-    <!-- on boucle sur les terms pour récuperer tout les terms
-pour chaque sport on veut afficher un li-->
-    <?php foreach ($sports as $sport) : ?>
-        <!-- si on fait ?= $sport->name on récupère le nom du sport -->
-        <li class="nav-item">
-            <!-- get_term_link($sport) pour que mes liens de taxonomie fonctionnne-->
-            <!-- is_tax permet de vérifier si la requete actuelle concerne une taxonomie-->
-            <!-- donc on fait une condition ici c'est du ternaire is_tax('sport', $sport->term_id) ? 'active' : '' , cela veut dire si on a une taxonomie 'sport' $sport correspond à l'id de la taxonomie, term_id permet de récupérer l'id -->
-            <!-- donc si celà à cette class on rajoute ('active' ? 'active' ), sinon (:) on met rien-->
-            <a href="<?= get_term_link($sport) ?>" class="nav-link <?= is_tax('sport', $sport->term_id) ? 'active' : '' ?>"><?= $sport->name ?></a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <div class="form-check mb-2 mr-sm-2">
+        <input class="form-check-input" type="checkbox" value="1" name="sponso" id="inlineFormCheck" <?= checked('1', get_query_var('sponso')) ?>>
+        <label class="form-check-label" for="inlineFormCheck">
+            Articles sponsorisé seulement
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+</form>
+<!-- je veux que tu appliques un filtre 1er params un nom de filtre 'montheme_search_title'suivi de la valeur "Résultat pour votre recherche et on rajoute le mot clé %s  et en sd params  get_search_query() permet de récupérer ce qui a été demandé par l’utilisateur -->
+<h1 class="mb-4"><?= sprintf(apply_filters('montheme_search_title', "Résultat pour votre recherche \"%s\""), get_search_query()) ?></h1>
 
 <!-- condition est ce qu'il y a des articles -->
 <?php if (have_posts()) : ?>
