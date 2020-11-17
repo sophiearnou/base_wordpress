@@ -10,7 +10,7 @@ add_action('wp_enqueue_scripts', function () {
     //11 correspond à la priorité on met une supérieur pour ce cela soit prit en compte
 }, 11);
 
-//pour les traductions
+//pour les traductions-c
 add_action('after_setup_theme', function () {
     //on apelle une fonction qui va se charger d'appeler le theme
     //1er params le nom du theme et ensuite le chemin vers lequel il doit charger les choses
